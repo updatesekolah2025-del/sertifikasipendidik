@@ -7,242 +7,187 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
   <style>
-    .fade-in { animation: fadeIn 0.8s ease-in-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .icon-input { position: relative; }
-    .icon-input i {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #888;
-    }
-    .icon-input input,
-    .icon-input select,
-    .icon-input textarea {
-      padding-left: 38px !important;
-    }
+    body { font-family: 'Inter', sans-serif; }
+    .sidebar { width: 250px; background: #1e3a8a; color: white; min-height: 100vh; }
+    .sidebar a { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 8px; transition: 0.3s; }
+    .sidebar a:hover, .sidebar a.active { background: #3b82f6; }
+    .content { flex: 1; background: #f9fafb; min-height: 100vh; padding: 30px; }
+    .card { background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); padding: 20px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left; }
+    th { background: #f1f5f9; }
   </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-10">
+<body class="flex bg-gray-50">
 
-  <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-2xl p-8 fade-in">
-    <h1 class="text-3xl font-bold text-center text-indigo-700 mb-6">
-      <i class="fa-solid fa-graduation-cap mr-2"></i>Sistem Pendataan Guru Sertifikasi
+  <!-- SIDEBAR -->
+  <aside class="sidebar p-4">
+    <h1 class="text-2xl font-bold text-center mb-6">
+      <i class="fa-solid fa-graduation-cap text-yellow-300 mr-2"></i>Data Sertifikasi
     </h1>
+    <nav class="flex flex-col space-y-2">
+      <a href="#" id="menu-dashboard" class="active"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+      <a href="#" id="menu-input"><i class="fa-solid fa-pen-to-square"></i> Input Data</a>
+      <a href="#" id="menu-rekap"><i class="fa-solid fa-table-list"></i> Rekap Data</a>
+    </nav>
+  </aside>
 
-    <form id="guruForm" class="space-y-5">
-      <!-- STATUS -->
-      <div class="icon-input">
-        <i class="fa-solid fa-id-badge"></i>
-        <label class="block text-gray-700 font-medium mb-1">Status Sertifikasi</label>
-        <select id="statusSertifikasi" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-indigo-400">
-          <option value="">Pilih Status</option>
-          <option value="Sudah Sertifikasi">Sudah Sertifikasi / PPG</option>
-          <option value="Belum Sertifikasi">Belum Sertifikasi</option>
-        </select>
-      </div>
-
-      <!-- NAMA -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-user"></i>
-          <label>Nama Lengkap</label>
-          <input id="namaLengkap" type="text" class="w-full border rounded-lg p-2" required />
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="fade-in">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="fa-solid fa-gauge mr-2"></i>Dashboard</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="card text-center">
+          <i class="fa-solid fa-users text-3xl text-blue-500 mb-2"></i>
+          <h3 class="text-lg font-semibold">Total Guru</h3>
+          <p id="totalGuru" class="text-3xl font-bold text-indigo-700">0</p>
         </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-hashtag"></i>
-          <label>NRG (Opsional)</label>
-          <input id="nrg" type="text" class="w-full border rounded-lg p-2" />
+        <div class="card text-center">
+          <i class="fa-solid fa-certificate text-3xl text-green-500 mb-2"></i>
+          <h3 class="text-lg font-semibold">Sudah Sertifikasi</h3>
+          <p id="sudahSertifikasi" class="text-3xl font-bold text-green-700">0</p>
         </div>
-      </div>
-
-      <!-- TTL -->
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-location-dot"></i>
-          <label>Tempat Lahir</label>
-          <input id="tempatLahir" type="text" class="w-full border rounded-lg p-2" />
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-calendar"></i>
-          <label>Tanggal Lahir</label>
-          <input id="tanggalLahir" type="date" class="w-full border rounded-lg p-2" />
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-venus-mars"></i>
-          <label>Jenis Kelamin</label>
-          <select id="jenisKelamin" class="w-full border rounded-lg p-2">
-            <option value="">Pilih</option>
-            <option value="Laki-laki">Laki-laki</option>
-            <option value="Perempuan">Perempuan</option>
-          </select>
+        <div class="card text-center">
+          <i class="fa-solid fa-hourglass-half text-3xl text-yellow-500 mb-2"></i>
+          <h3 class="text-lg font-semibold">Belum Sertifikasi</h3>
+          <p id="belumSertifikasi" class="text-3xl font-bold text-yellow-600">0</p>
         </div>
       </div>
+    </section>
 
-      <!-- AGAMA DAN TELEPON -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-mosque"></i>
-          <label>Agama</label>
-          <select id="agama" class="w-full border rounded-lg p-2">
-            <option value="">Pilih</option>
-            <option>Islam</option><option>Kristen</option>
-            <option>Katolik</option><option>Hindu</option>
-            <option>Buddha</option><option>Konghucu</option>
-          </select>
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-phone"></i>
-          <label>No. Telepon</label>
-          <input id="noTelepon" type="tel" class="w-full border rounded-lg p-2" />
-        </div>
-      </div>
-
-      <!-- ALAMAT -->
-      <div class="icon-input">
-        <i class="fa-solid fa-map"></i>
-        <label>Alamat</label>
-        <textarea id="alamat" rows="3" class="w-full border rounded-lg p-2"></textarea>
-      </div>
-
-      <!-- SEKOLAH -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-briefcase"></i>
-          <label>Status Kepegawaian</label>
-          <select id="statusKepegawaian" class="w-full border rounded-lg p-2">
-            <option value="">Pilih</option>
-            <option>PNS</option><option>PPPK</option>
-            <option>GTT</option><option>GTY</option><option>Honorer</option>
-          </select>
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-school"></i>
-          <label>Nama Sekolah</label>
-          <select id="namaSekolah" class="w-full border rounded-lg p-2">
-            <option value="">Pilih Sekolah</option>
-            <option>SMP Fajar</option><option>SMK Fajar</option>
-            <option>SMK Mutiara Insani</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- S1 DAN MAPEL -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-book"></i>
-          <label>Bidang Studi S1</label>
-          <input id="bidangStudiS1" type="text" class="w-full border rounded-lg p-2" />
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-chalkboard"></i>
-          <label>Mata Pelajaran di Sekolah</label>
-          <input id="mapel" type="text" class="w-full border rounded-lg p-2" placeholder="Contoh: Informatika, PAI" />
-        </div>
-      </div>
-
-      <!-- EMAIL -->
-      <div class="grid md:grid-cols-2 gap-4">
-        <div class="icon-input">
-          <i class="fa-solid fa-envelope"></i>
-          <label>Email Belajar.id</label>
-          <input id="emailBelajar" type="email" class="w-full border rounded-lg p-2" />
-        </div>
-        <div class="icon-input">
-          <i class="fa-solid fa-envelope-open-text"></i>
-          <label>Email Pribadi</label>
-          <input id="emailPribadi" type="email" class="w-full border rounded-lg p-2" />
-        </div>
-      </div>
-
-      <!-- FIELD PPG -->
-      <div id="fieldSertifikasi" class="hidden bg-green-50 border border-green-300 rounded-xl p-4 mt-2">
-        <h3 class="text-green-800 font-bold mb-2"><i class="fa-solid fa-certificate mr-1"></i>Data Sertifikasi / PPG</h3>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="icon-input">
-            <i class="fa-solid fa-scroll"></i>
-            <label>Jenis Sertifikasi</label>
-            <select id="jenisSertifikasi" class="w-full border rounded-lg p-2">
-              <option value="">Pilih</option>
-              <option value="PLPG">PLPG</option>
-              <option value="PPG">PPG</option>
-            </select>
+    <!-- INPUT DATA -->
+    <section id="input" class="hidden fade-in">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="fa-solid fa-pen-to-square mr-2"></i>Form Input Data</h2>
+      <div class="card">
+        <form id="guruForm" class="space-y-4">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold">Nama Lengkap</label>
+              <input id="namaLengkap" type="text" class="w-full border rounded-lg p-2" required>
+            </div>
+            <div>
+              <label class="font-semibold">Status Sertifikasi</label>
+              <select id="statusSertifikasi" class="w-full border rounded-lg p-2">
+                <option value="">Pilih</option>
+                <option value="Sudah Sertifikasi">Sudah Sertifikasi</option>
+                <option value="Belum Sertifikasi">Belum Sertifikasi</option>
+              </select>
+            </div>
           </div>
-          <div class="icon-input">
-            <i class="fa-solid fa-book-open"></i>
-            <label>Bidang Studi Sertifikasi</label>
-            <input id="bidangSertifikasi" type="text" class="w-full border rounded-lg p-2" />
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold">Nama Sekolah</label>
+              <select id="namaSekolah" class="w-full border rounded-lg p-2">
+                <option>SMP Fajar</option><option>SMK Fajar</option><option>SMK Mutiara Insani</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold">Bidang Studi S1</label>
+              <input id="bidangStudiS1" type="text" class="w-full border rounded-lg p-2">
+            </div>
           </div>
-        </div>
-        <div class="grid md:grid-cols-2 gap-4 mt-2">
-          <div class="icon-input">
-            <i class="fa-solid fa-calendar-check"></i>
-            <label>Tanggal Mulai Berlaku</label>
-            <input id="tanggalMulaiBerlaku" type="date" class="w-full border rounded-lg p-2" />
+          <div>
+            <label class="font-semibold">Mata Pelajaran di Sekolah</label>
+            <input id="mapel" type="text" class="w-full border rounded-lg p-2">
           </div>
-          <div class="icon-input">
-            <i class="fa-solid fa-id-card"></i>
-            <label>Nomor Peserta Sertifikasi / PLPG</label>
-            <input id="nomorPeserta" type="text" class="w-full border rounded-lg p-2" />
+          <div class="text-right">
+            <button type="submit" class="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700"><i class="fa-solid fa-paper-plane mr-1"></i>Kirim</button>
           </div>
-        </div>
+        </form>
+        <p id="notif" class="text-center font-semibold mt-4"></p>
       </div>
+    </section>
 
-      <!-- BUTTONS -->
-      <div class="flex justify-end gap-3 mt-5">
-        <button type="reset" class="bg-gray-400 hover:bg-gray-500 text-white px-5 py-2 rounded-lg"><i class="fa-solid fa-rotate-left mr-1"></i>Reset</button>
-        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg"><i class="fa-solid fa-paper-plane mr-1"></i>Kirim</button>
+    <!-- REKAP DATA -->
+    <section id="rekap" class="hidden fade-in">
+      <h2 class="text-2xl font-bold text-gray-800 mb-4"><i class="fa-solid fa-table-list mr-2"></i>Rekap Data</h2>
+      <div class="card overflow-auto">
+        <table id="rekapTable">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Nama Lengkap</th>
+              <th>Status Sertifikasi</th>
+              <th>Nama Sekolah</th>
+              <th>Bidang Studi S1</th>
+              <th>Mapel</th>
+            </tr>
+          </thead>
+          <tbody id="rekapBody"></tbody>
+        </table>
       </div>
-    </form>
-
-    <div id="notif" class="hidden text-center mt-4 text-lg font-semibold"></div>
-  </div>
+    </section>
+  </main>
 
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9dq89Zb3lRx7QqhLMaJThD-gViADodqkbs94onpDwhq7474IATc6mRtnmbrEF2J71/exec";
 
-    // tampilkan field PPG otomatis
-    document.getElementById("statusSertifikasi").addEventListener("change", (e) => {
-      document.getElementById("fieldSertifikasi").classList.toggle("hidden", e.target.value !== "Sudah Sertifikasi");
-    });
+    // menu switch
+    const menuMap = {
+      dashboard: document.getElementById("dashboard"),
+      input: document.getElementById("input"),
+      rekap: document.getElementById("rekap"),
+    };
+    const setActive = (id) => {
+      document.querySelectorAll(".sidebar a").forEach(a => a.classList.remove("active"));
+      document.getElementById("menu-" + id).classList.add("active");
+      Object.keys(menuMap).forEach(k => menuMap[k].classList.add("hidden"));
+      menuMap[id].classList.remove("hidden");
+      if (id === "dashboard" || id === "rekap") loadData();
+    };
+    document.getElementById("menu-dashboard").onclick = () => setActive("dashboard");
+    document.getElementById("menu-input").onclick = () => setActive("input");
+    document.getElementById("menu-rekap").onclick = () => setActive("rekap");
 
-    // kirim data
+    // load data ke dashboard dan rekap
+    async function loadData() {
+      try {
+        const res = await fetch(SCRIPT_URL);
+        const json = await res.json();
+        if (!json.success) return;
+
+        const data = json.data;
+        document.getElementById("totalGuru").textContent = data.length;
+        const sudah = data.filter(d => d["Status Sertifikasi"] === "Sudah Sertifikasi").length;
+        const belum = data.filter(d => d["Status Sertifikasi"] === "Belum Sertifikasi").length;
+        document.getElementById("sudahSertifikasi").textContent = sudah;
+        document.getElementById("belumSertifikasi").textContent = belum;
+
+        const body = document.getElementById("rekapBody");
+        body.innerHTML = "";
+        data.forEach((d, i) => {
+          body.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${d["Nama Lengkap"] || ""}</td>
+              <td>${d["Status Sertifikasi"] || ""}</td>
+              <td>${d["Nama Sekolah"] || ""}</td>
+              <td>${d["Bidang Studi S1"] || ""}</td>
+              <td>${d["Mata Pelajaran di Sekolah"] || ""}</td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // kirim data ke sheet
     document.getElementById("guruForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const notif = document.getElementById("notif");
-      notif.classList.add("hidden");
-
       const btn = e.submitter;
+      const notif = document.getElementById("notif");
       btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i>Mengirim...';
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> Mengirim...';
+      notif.textContent = "";
 
       const data = {
         "Status Sertifikasi": document.getElementById("statusSertifikasi").value,
         "Nama Lengkap": document.getElementById("namaLengkap").value,
-        "NRG": document.getElementById("nrg").value,
-        "Tempat Lahir": document.getElementById("tempatLahir").value,
-        "Tanggal Lahir": document.getElementById("tanggalLahir").value,
-        "Jenis Kelamin": document.getElementById("jenisKelamin").value,
-        "Agama": document.getElementById("agama").value,
-        "No. Telepon": document.getElementById("noTelepon").value,
-        "Alamat": document.getElementById("alamat").value,
-        "Status Kepegawaian": document.getElementById("statusKepegawaian").value,
         "Nama Sekolah": document.getElementById("namaSekolah").value,
         "Bidang Studi S1": document.getElementById("bidangStudiS1").value,
-        "Mata Pelajaran di Sekolah": document.getElementById("mapel").value,
-        "Email Belajar.id": document.getElementById("emailBelajar").value,
-        "Email Pribadi": document.getElementById("emailPribadi").value,
-        "Jenis Sertifikasi": document.getElementById("jenisSertifikasi").value,
-        "Bidang Studi Sertifikasi": document.getElementById("bidangSertifikasi").value,
-        "Tanggal Mulai Berlaku": document.getElementById("tanggalMulaiBerlaku").value,
-        "Nomor Peserta Sertifikasi/PLPG": document.getElementById("nomorPeserta").value,
-        "Upload Dokumen Sertifikat": "",
-        "Upload SK KBM": "",
-        "Upload Surat Tugas": ""
+        "Mata Pelajaran di Sekolah": document.getElementById("mapel").value
       };
 
       try {
@@ -251,25 +196,22 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });
-        const result = await res.json();
-        notif.classList.remove("hidden");
-        if (result.success) {
-          notif.className = "text-green-600 text-center mt-4 font-bold";
-          notif.innerHTML = "<i class='fa-solid fa-circle-check mr-2'></i>Data berhasil tersimpan di Google Sheet!";
-          e.target.reset();
-        } else {
-          notif.className = "text-red-600 text-center mt-4 font-bold";
-          notif.innerText = "❌ " + result.error;
-        }
+        const json = await res.json();
+        notif.className = "text-green-600 text-center mt-3 font-semibold";
+        notif.textContent = "✅ Data tersimpan!";
+        e.target.reset();
+        loadData();
       } catch (err) {
-        notif.classList.remove("hidden");
-        notif.className = "text-red-600 text-center mt-4 font-bold";
-        notif.innerText = "⚠️ Gagal menyimpan: " + err.message;
+        notif.className = "text-red-600 text-center mt-3 font-semibold";
+        notif.textContent = "⚠️ Gagal menyimpan: " + err.message;
       } finally {
         btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-1"></i>Kirim';
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-1"></i> Kirim';
       }
     });
+
+    // load awal
+    loadData();
   </script>
 </body>
 </html>
