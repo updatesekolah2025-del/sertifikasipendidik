@@ -31,7 +31,7 @@
   <aside class="sidebar p-5">
     <h1 class="text-xl font-bold mb-4 text-center">
       <i class="fa-solid fa-graduation-cap text-yellow-300 mr-2"></i>
-      Data Sertifikasi
+      Data Sertifikasi Guru
     </h1>
     <nav class="flex flex-col gap-2">
       <a href="#" id="m-dashboard" class="active"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a>
@@ -89,21 +89,29 @@
 
     <!-- INPUT -->
     <section id="sec-input" class="hidden space-y-4">
-      <h2 class="text-2xl font-bold text-slate-800">
-        <i class="fa-solid fa-pen-to-square mr-2 text-indigo-600"></i>Input Data
-      </h2>
+      <div class="flex items-center justify-between">
+        <h2 class="text-2xl font-bold text-slate-800">
+          <i class="fa-solid fa-pen-to-square mr-2 text-indigo-600"></i>Input Data
+        </h2>
+        <div class="flex gap-2">
+          <button id="btn-dummy" class="px-3 py-2 rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-800">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i>Isi Dummy
+          </button>
+        </div>
+      </div>
+
       <div class="card">
         <form id="formGuru" class="space-y-4">
           <div class="grid md:grid-cols-2 gap-4">
             <div class="icon-input">
               <i class="fa-solid fa-user"></i>
               <label class="block text-sm font-semibold mb-1">Nama Lengkap</label>
-              <input id="NamaLengkap" type="text" class="w-full border rounded-lg p-2" required>
+              <input id="Nama Lengkap" type="text" class="w-full border rounded-lg p-2" required>
             </div>
             <div class="icon-input">
               <i class="fa-solid fa-id-badge"></i>
               <label class="block text-sm font-semibold mb-1">Status Sertifikasi</label>
-              <select id="StatusSertifikasi" class="w-full border rounded-lg p-2" required>
+              <select id="Status Sertifikasi" class="w-full border rounded-lg p-2" required>
                 <option value="">Pilih</option>
                 <option>Sudah Sertifikasi</option>
                 <option>Belum Sertifikasi</option>
@@ -129,7 +137,7 @@
             <div class="icon-input">
               <i class="fa-solid fa-venus-mars"></i>
               <label class="block text-sm font-semibold mb-1">Jenis Kelamin</label>
-              <select id="JenisKelamin" class="w-full border rounded-lg p-2">
+              <select id="Jenis Kelamin" class="w-full border rounded-lg p-2">
                 <option value="">Pilih</option>
                 <option>Laki-laki</option><option>Perempuan</option>
               </select>
@@ -140,7 +148,7 @@
             <div class="icon-input">
               <i class="fa-solid fa-school"></i>
               <label class="block text-sm font-semibold mb-1">Nama Sekolah</label>
-              <select id="NamaSekolah" class="w-full border rounded-lg p-2" required>
+              <select id="Nama Sekolah" class="w-full border rounded-lg p-2" required>
                 <option value="">Pilih Sekolah</option>
                 <option>SMP Fajar</option><option>SMK Fajar</option><option>SMK Mutiara Insani</option>
               </select>
@@ -148,7 +156,7 @@
             <div class="icon-input">
               <i class="fa-solid fa-briefcase"></i>
               <label class="block text-sm font-semibold mb-1">Status Kepegawaian</label>
-              <select id="StatusKepegawaian" class="w-full border rounded-lg p-2">
+              <select id="Status Kepegawaian" class="w-full border rounded-lg p-2">
                 <option value="">Pilih</option><option>PNS</option><option>PPPK</option>
                 <option>GTT</option><option>GTY</option><option>Honorer</option>
               </select>
@@ -159,12 +167,12 @@
             <div class="icon-input">
               <i class="fa-solid fa-book"></i>
               <label class="block text-sm font-semibold mb-1">Bidang Studi S1</label>
-              <input id="BidangStudiS1" type="text" class="w-full border rounded-lg p-2">
+              <input id="Bidang Studi S1" type="text" class="w-full border rounded-lg p-2">
             </div>
             <div class="icon-input">
               <i class="fa-solid fa-chalkboard"></i>
               <label class="block text-sm font-semibold mb-1">Mata Pelajaran di Sekolah</label>
-              <input id="MataPelajaranDiSekolah" type="text" class="w-full border rounded-lg p-2" placeholder="Contoh: Informatika, PAI">
+              <input id="Mata Pelajaran di Sekolah" type="text" class="w-full border rounded-lg p-2" placeholder="Contoh: Informatika, PAI">
             </div>
           </div>
 
@@ -172,23 +180,22 @@
             <div class="icon-input">
               <i class="fa-solid fa-envelope"></i>
               <label class="block text-sm font-semibold mb-1">Email Belajar.id</label>
-              <input id="EmailBelajarid" type="email" class="w-full border rounded-lg p-2">
+              <input id="Email Belajar.id" type="email" class="w-full border rounded-lg p-2">
             </div>
             <div class="icon-input">
               <i class="fa-solid fa-envelope-open-text"></i>
               <label class="block text-sm font-semibold mb-1">Email Pribadi</label>
-              <input id="EmailPribadi" type="email" class="w-full border rounded-lg p-2">
+              <input id="Email Pribadi" type="email" class="w-full border rounded-lg p-2">
             </div>
           </div>
 
-          <!-- Bagian PPG/PLPG muncul jika Sudah Sertifikasi -->
           <div id="wrap-ppg" class="hidden border border-emerald-200 bg-emerald-50 rounded-xl p-4">
             <div class="font-semibold text-emerald-800 mb-2"><i class="fa-solid fa-certificate mr-1"></i>Data Sertifikasi / PPG</div>
             <div class="grid md:grid-cols-2 gap-4">
               <div class="icon-input">
                 <i class="fa-solid fa-scroll"></i>
                 <label class="block text-sm font-semibold mb-1">Jenis Sertifikasi</label>
-                <select id="JenisSertifikasi" class="w-full border rounded-lg p-2">
+                <select id="Jenis Sertifikasi" class="w-full border rounded-lg p-2">
                   <option value="">Pilih</option>
                   <option>PLPG</option><option>PPG</option>
                 </select>
@@ -196,19 +203,19 @@
               <div class="icon-input">
                 <i class="fa-solid fa-book-open"></i>
                 <label class="block text-sm font-semibold mb-1">Bidang Studi Sertifikasi</label>
-                <input id="BidangStudiSertifikasi" type="text" class="w-full border rounded-lg p-2">
+                <input id="Bidang Studi Sertifikasi" type="text" class="w-full border rounded-lg p-2">
               </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4 mt-2">
               <div class="icon-input">
                 <i class="fa-solid fa-calendar-check"></i>
                 <label class="block text-sm font-semibold mb-1">Tanggal Mulai Berlaku</label>
-                <input id="TanggalMulaiBerlaku" type="date" class="w-full border rounded-lg p-2">
+                <input id="Tanggal Mulai Berlaku" type="date" class="w-full border rounded-lg p-2">
               </div>
               <div class="icon-input">
                 <i class="fa-solid fa-id-card"></i>
-                <label class="block text-sm font-semibold mb-1">Nomor Peserta Sertifikasi / PLPG</label>
-                <input id="NomorPesertaSertifikasiPLPG" type="text" class="w-full border rounded-lg p-2">
+                <label class="block text-sm font-semibold mb-1">Nomor Peserta Sertifikasi/PLPG</label>
+                <input id="Nomor Peserta Sertifikasi/PLPG" type="text" class="w-full border rounded-lg p-2">
               </div>
             </div>
           </div>
@@ -217,17 +224,17 @@
             <div class="icon-input">
               <i class="fa-solid fa-location-dot"></i>
               <label class="block text-sm font-semibold mb-1">Tempat Lahir</label>
-              <input id="TempatLahir" type="text" class="w-full border rounded-lg p-2">
+              <input id="Tempat Lahir" type="text" class="w-full border rounded-lg p-2">
             </div>
             <div class="icon-input">
               <i class="fa-solid fa-calendar"></i>
               <label class="block text-sm font-semibold mb-1">Tanggal Lahir</label>
-              <input id="TanggalLahir" type="date" class="w-full border rounded-lg p-2">
+              <input id="Tanggal Lahir" type="date" class="w-full border rounded-lg p-2">
             </div>
             <div class="icon-input">
               <i class="fa-solid fa-phone"></i>
               <label class="block text-sm font-semibold mb-1">No. Telepon</label>
-              <input id="NoTelepon" type="tel" class="w-full border rounded-lg p-2">
+              <input id="No. Telepon" type="tel" class="w-full border rounded-lg p-2">
             </div>
           </div>
 
@@ -235,6 +242,24 @@
             <i class="fa-solid fa-map"></i>
             <label class="block text-sm font-semibold mb-1">Alamat</label>
             <textarea id="Alamat" rows="3" class="w-full border rounded-lg p-2"></textarea>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="icon-input">
+              <i class="fa-solid fa-file-lines"></i>
+              <label class="block text-sm font-semibold mb-1">Upload Dokumen Sertifikat (nama file)</label>
+              <input id="Upload Dokumen Sertifikat" type="text" class="w-full border rounded-lg p-2" placeholder="contoh: sertifikat_andi.pdf">
+            </div>
+            <div class="icon-input">
+              <i class="fa-solid fa-file-circle-check"></i>
+              <label class="block text-sm font-semibold mb-1">Upload SK KBM (nama file)</label>
+              <input id="Upload SK KBM" type="text" class="w-full border rounded-lg p-2" placeholder="contoh: skkbm_andi.pdf">
+            </div>
+            <div class="icon-input">
+              <i class="fa-solid fa-file-signature"></i>
+              <label class="block text-sm font-semibold mb-1">Upload Surat Tugas (nama file)</label>
+              <input id="Upload Surat Tugas" type="text" class="w-full border rounded-lg p-2" placeholder="contoh: surat_tugas_andi.pdf">
+            </div>
           </div>
 
           <div class="flex justify-end gap-3 pt-2">
@@ -281,33 +306,31 @@
   </main>
 
   <script>
-    // ====== KONFIGURASI ======
+    // ====== KONFIGURASI (ganti bila perlu) ======
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9dq89Zb3lRx7QqhLMaJThD-gViADodqkbs94onpDwhq7474IATc6mRtnmbrEF2J71/exec";
 
     // ====== NAV ======
-    const sec = {
-      dashboard: document.getElementById("sec-dashboard"),
-      input: document.getElementById("sec-input"),
-      rekap: document.getElementById("sec-rekap"),
-    };
+    const sec = { dashboard: el("sec-dashboard"), input: el("sec-input"), rekap: el("sec-rekap") };
     const nav = (id) => {
       document.querySelectorAll(".sidebar a").forEach(a=>a.classList.remove("active"));
-      document.getElementById("m-"+id).classList.add("active");
+      el("m-"+id).classList.add("active");
       Object.values(sec).forEach(s=>s.classList.add("hidden"));
       sec[id].classList.remove("hidden");
       if (id!=="input") fetchAndRender();
     };
-    document.getElementById("m-dashboard").onclick = () => nav("dashboard");
-    document.getElementById("m-input").onclick = () => nav("input");
-    document.getElementById("m-rekap").onclick = () => nav("rekap");
-    document.getElementById("btn-refresh").onclick = () => fetchAndRender();
+    onClick("m-dashboard", () => nav("dashboard"));
+    onClick("m-input",     () => nav("input"));
+    onClick("m-rekap",     () => nav("rekap"));
+    onClick("btn-refresh", () => fetchAndRender());
 
     // ====== STATE ======
     let DATA = [];
     let chartStatus, chartSekolah;
 
     // ====== HELPERS ======
-    const pingEl = document.getElementById("ping");
+    function el(id){return document.getElementById(id)}
+    function onClick(id,fn){el(id).onclick=fn}
+    const pingEl = el("ping");
     async function pingWebApp(){
       try{
         const r = await fetch(SCRIPT_URL);
@@ -316,55 +339,41 @@
       }catch{ pingEl.textContent = "Offline"; pingEl.classList.add("text-amber-300"); }
     }
 
-    function buildDataObject() {
-      // Kunci HARUS sama persis dengan header di Apps Script
-      const val = id => document.getElementById(id)?.value?.trim() || "";
-      return {
-        "Status Sertifikasi": val("StatusSertifikasi"),
-        "Nama Lengkap": val("NamaLengkap"),
-        "NRG": val("NRG"),
-        "Tempat Lahir": val("TempatLahir"),
-        "Tanggal Lahir": val("TanggalLahir"),
-        "Jenis Kelamin": val("JenisKelamin"),
-        "Agama": val("Agama"),
-        "No. Telepon": val("NoTelepon"),
-        "Alamat": val("Alamat"),
-        "Status Kepegawaian": val("StatusKepegawaian"),
-        "Nama Sekolah": val("NamaSekolah"),
-        "Bidang Studi S1": val("BidangStudiS1"),
-        "Mata Pelajaran di Sekolah": val("MataPelajaranDiSekolah"),
-        "Email Belajar.id": val("EmailBelajarid"),
-        "Email Pribadi": val("EmailPribadi"),
-        "Jenis Sertifikasi": val("JenisSertifikasi"),
-        "Bidang Studi Sertifikasi": val("BidangStudiSertifikasi"),
-        "Tanggal Mulai Berlaku": val("TanggalMulaiBerlaku"),
-        "Nomor Peserta Sertifikasi/PLPG": val("NomorPesertaSertifikasiPLPG"),
-        "Upload Dokumen Sertifikat": "",
-        "Upload SK KBM": "",
-        "Upload Surat Tugas": ""
-      };
+    // Build payload dengan KEY = header persis
+    function buildPayload() {
+      const ids = [
+        "Status Sertifikasi","Nama Lengkap","NRG","Tempat Lahir","Tanggal Lahir",
+        "Jenis Kelamin","Agama","No. Telepon","Alamat","Status Kepegawaian",
+        "Nama Sekolah","Bidang Studi S1","Mata Pelajaran di Sekolah",
+        "Email Belajar.id","Email Pribadi","Jenis Sertifikasi","Bidang Studi Sertifikasi",
+        "Tanggal Mulai Berlaku","Nomor Peserta Sertifikasi/PLPG",
+        "Upload Dokumen Sertifikat","Upload SK KBM","Upload Surat Tugas"
+      ];
+      const o = {};
+      ids.forEach(k => o[k] = (el(k)?.value ?? "").trim());
+      return o;
     }
 
     function renderDashboard(data){
       const total = data.length;
       const sudah = data.filter(d=>d["Status Sertifikasi"]==="Sudah Sertifikasi").length;
       const belum = data.filter(d=>d["Status Sertifikasi"]==="Belum Sertifikasi").length;
-      document.getElementById("stat-total").textContent = total;
-      document.getElementById("stat-sudah").textContent = sudah;
-      document.getElementById("stat-belum").textContent = belum;
+      el("stat-total").textContent = total;
+      el("stat-sudah").textContent = sudah;
+      el("stat-belum").textContent = belum;
 
       // chart status
       const ctx1 = document.getElementById("chartStatus");
       if(chartStatus) chartStatus.destroy();
       chartStatus = new Chart(ctx1, {
         type: "pie",
-        data: { labels:["Sudah","Belum"],
-          datasets:[{ data:[sudah,belum] }] },
+        data: { labels:["Sudah","Belum"], datasets:[{ data:[sudah,belum] }] },
         options:{ responsive:true, plugins:{ legend:{ position:"bottom" } } }
       });
 
       // chart sekolah
       const bySekolah = {};
+      ["SMP Fajar","SMK Fajar","SMK Mutiara Insani"].forEach(n=>bySekolah[n]=0);
       data.forEach(d=>{
         const s = d["Nama Sekolah"] || "Tidak diisi";
         bySekolah[s] = (bySekolah[s]||0)+1;
@@ -381,13 +390,13 @@
     }
 
     function renderTable(data){
-      const q = document.getElementById("filterCari").value.toLowerCase();
+      const q = el("filterCari")?.value?.toLowerCase() || "";
       const rows = data.filter(d=>{
         if(!q) return true;
         return ["Nama Lengkap","Mata Pelajaran di Sekolah","Nama Sekolah"]
           .some(k => (d[k]||"").toString().toLowerCase().includes(q));
       });
-      const tbody = document.getElementById("tbody-rekap");
+      const tbody = el("tbody-rekap");
       tbody.innerHTML = "";
       rows.forEach((d,i)=>{
         const status = d["Status Sertifikasi"]||"";
@@ -432,21 +441,62 @@
     }
 
     // ====== FORM HANDLER ======
-    const notif = document.getElementById("notif");
-    document.getElementById("StatusSertifikasi").addEventListener("change", e=>{
-      document.getElementById("wrap-ppg").classList.toggle("hidden", e.target.value!=="Sudah Sertifikasi");
+    const notif = el("notif");
+    el("Status Sertifikasi").addEventListener("change", e=>{
+      el("wrap-ppg").classList.toggle("hidden", e.target.value!=="Sudah Sertifikasi");
     });
 
-    document.getElementById("formGuru").addEventListener("submit", async (e)=>{
+    // Tombol Dummy
+    onClick("btn-dummy", ()=>{
+      const pick = (arr)=>arr[Math.floor(Math.random()*arr.length)];
+      const nama = ["Andi Saputra","Siti Nuraini","Budi Santoso","Dewi Lestari","Rina Maharani","Rizky Ramadhan"];
+      const mapel = ["Informatika","PAI","PKN","Matematika","Bahasa Indonesia","Bahasa Inggris"];
+      const sekolah = ["SMP Fajar","SMK Fajar","SMK Mutiara Insani"];
+      const jk = ["Laki-laki","Perempuan"];
+      const agama = ["Islam","Kristen","Katolik","Hindu","Buddha","Konghucu"];
+      const status = ["Sudah Sertifikasi","Belum Sertifikasi"];
+      const kepeg = ["PNS","PPPK","GTT","GTY","Honorer"];
+      const sert = ["PLPG","PPG"];
+
+      setVal("Nama Lengkap", pick(nama));
+      setVal("Status Sertifikasi", pick(status));
+      setVal("NRG", Math.random()<0.5 ? "NRG"+Math.floor(100000+Math.random()*900000) : "");
+      setVal("Tempat Lahir","Bogor");
+      setVal("Tanggal Lahir","1988-0"+(1+Math.floor(Math.random()*8))+"-"+(10+Math.floor(Math.random()*19)));
+      setVal("Jenis Kelamin", pick(jk));
+      setVal("Agama", pick(agama));
+      setVal("No. Telepon","08"+Math.floor(100000000+Math.random()*899999999));
+      setVal("Alamat","Jl. Melati No. "+(1+Math.floor(Math.random()*99))+", Rumpin");
+      setVal("Status Kepegawaian", pick(kepeg));
+      setVal("Nama Sekolah", pick(sekolah));
+      setVal("Bidang Studi S1","Pendidikan "+pick(mapel));
+      setVal("Mata Pelajaran di Sekolah", pick(mapel));
+      setVal("Email Belajar.id","guru."+Date.now()+"@belajar.id");
+      setVal("Email Pribadi","guru"+Math.floor(Math.random()*999)+"@mail.com");
+      setVal("Jenis Sertifikasi", pick(sert));
+      setVal("Bidang Studi Sertifikasi", pick(mapel));
+      setVal("Tanggal Mulai Berlaku","2020-01-01");
+      setVal("Nomor Peserta Sertifikasi/PLPG","PS-"+Math.floor(100000+Math.random()*900000));
+      setVal("Upload Dokumen Sertifikat","sertifikat.pdf");
+      setVal("Upload SK KBM","skkbm.pdf");
+      setVal("Upload Surat Tugas","surat_tugas.pdf");
+
+      // tampilkan blok PPG jika sudah
+      el("wrap-ppg").classList.toggle("hidden", el("Status Sertifikasi").value!=="Sudah Sertifikasi");
+    });
+
+    function setVal(id,val){ const n=el(id); if(n){ n.value=val; } }
+
+    // Submit
+    el("formGuru").addEventListener("submit", async (e)=>{
       e.preventDefault();
       notif.textContent = "";
       const btn = e.submitter;
       btn.disabled = true;
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i>Mengirim...';
 
-      const payload = buildDataObject();
+      const payload = buildPayload();
 
-      // coba fetch normal dulu
       let ok = false;
       try{
         const res = await fetch(SCRIPT_URL, {
@@ -458,7 +508,7 @@
         const js = await res.json();
         ok = js?.success ?? true;
       }catch(err){
-        // fallback no-cors (tetap kirim, walau tak bisa baca respons)
+        // fallback no-cors: tetap kirim walau tak bisa baca respons
         try{
           await fetch(SCRIPT_URL, {
             method:"POST",
@@ -467,29 +517,26 @@
             body: JSON.stringify(payload)
           });
           ok = true;
-        }catch(e2){
-          ok = false;
-          console.error("POST gagal:", e2);
-        }
+        }catch(e2){ ok = false; console.error("POST gagal:", e2); }
       }
 
       if(ok){
         notif.className = "text-green-600 text-center font-semibold";
         notif.textContent = "✅ Data terkirim & tersimpan di Google Sheet.";
         e.target.reset();
-        document.getElementById("wrap-ppg").classList.add("hidden");
-        fetchAndRender();
+        el("wrap-ppg").classList.add("hidden");
+        fetchAndRender(); // update dashboard & rekap
       }else{
         notif.className = "text-red-600 text-center font-semibold";
-        notif.textContent = "⚠️ Gagal menyimpan. Cek URL WebApp dan aksesnya (Anyone).";
+        notif.textContent = "⚠️ Gagal menyimpan. Cek URL WebApp & aksesnya (Anyone).";
       }
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-paper-plane mr-1"></i>Kirim';
     });
 
     // ====== FILTER & EXPORT ======
-    document.getElementById("filterCari").addEventListener("input", ()=>renderTable(DATA));
-    document.getElementById("btn-export").addEventListener("click", ()=>{
+    el("filterCari").addEventListener("input", ()=>renderTable(DATA));
+    el("btn-export").addEventListener("click", ()=>{
       const csv = toCSV(DATA);
       const blob = new Blob([csv], {type:"text/csv;charset=utf-8;"});
       const url = URL.createObjectURL(blob);
@@ -501,7 +548,6 @@
     // init
     pingWebApp();
     fetchAndRender();
-    // default view:
     nav("dashboard");
   </script>
 </body>
