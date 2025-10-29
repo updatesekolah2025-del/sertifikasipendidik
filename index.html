@@ -5,156 +5,216 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sistem Pendataan Guru Sertifikasi</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet" />
+  <style>
+    body { background: linear-gradient(120deg, #e0e7ff, #f5f3ff); }
+    .card { transition: all 0.3s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
+  </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+<body class="font-sans text-gray-800">
 
-  <!-- Navbar -->
-  <div class="bg-indigo-700 text-white py-3 shadow-lg flex justify-between px-6">
-    <h1 class="text-xl font-bold"><i class="fa-solid fa-graduation-cap mr-2"></i>Pendataan Guru Sertifikasi</h1>
-    <div>
-      <button onclick="showSection('dashboard')" class="mx-1 px-3 py-1 bg-indigo-500 rounded">Dashboard</button>
-      <button onclick="showSection('form')" class="mx-1 px-3 py-1 bg-indigo-500 rounded">Input Data</button>
-      <button onclick="showSection('rekap')" class="mx-1 px-3 py-1 bg-indigo-500 rounded">Rekap Data</button>
+  <!-- HEADER -->
+  <header class="bg-indigo-700 text-white p-5 shadow-md">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold"><i class="fa-solid fa-graduation-cap mr-2"></i>Pendataan Guru Sertifikasi</h1>
+      <nav class="space-x-4">
+        <button id="btnDashboard" class="hover:bg-indigo-600 px-3 py-2 rounded">Dashboard</button>
+        <button id="btnInput" class="hover:bg-indigo-600 px-3 py-2 rounded">Input Data</button>
+        <button id="btnRekap" class="hover:bg-indigo-600 px-3 py-2 rounded">Rekap Data</button>
+      </nav>
     </div>
-  </div>
+  </header>
 
-  <div class="p-6 max-w-6xl mx-auto">
+  <main class="max-w-6xl mx-auto py-8">
+
     <!-- DASHBOARD -->
-    <section id="dashboard">
-      <h2 class="text-2xl font-bold text-indigo-700 mb-4">📊 Dashboard</h2>
-      <div id="dashboardStats" class="grid md:grid-cols-3 gap-4 text-center"></div>
-      <canvas id="chartDistribusi" class="mt-6"></canvas>
+    <section id="dashboard" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card bg-white p-6 rounded-xl shadow text-center">
+        <i class="fa-solid fa-users text-indigo-600 text-3xl mb-2"></i>
+        <h2 class="font-bold text-lg">Total Guru</h2>
+        <p id="totalGuru" class="text-3xl font-extrabold text-indigo-700">0</p>
+      </div>
+      <div class="card bg-green-50 p-6 rounded-xl shadow text-center">
+        <i class="fa-solid fa-certificate text-green-600 text-3xl mb-2"></i>
+        <h2 class="font-bold text-lg">Sudah Sertifikasi</h2>
+        <p id="sudahSertifikasi" class="text-3xl font-extrabold text-green-700">0</p>
+      </div>
+      <div class="card bg-orange-50 p-6 rounded-xl shadow text-center">
+        <i class="fa-solid fa-hourglass-half text-orange-600 text-3xl mb-2"></i>
+        <h2 class="font-bold text-lg">Belum Sertifikasi</h2>
+        <p id="belumSertifikasi" class="text-3xl font-extrabold text-orange-700">0</p>
+      </div>
+
+      <div class="md:col-span-3 mt-5 bg-white rounded-xl shadow p-6">
+        <h3 class="font-bold mb-2 text-center">Distribusi Guru per Sekolah</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <p class="font-bold">SMP Fajar</p><p id="smpFajar">0</p>
+          </div>
+          <div class="bg-green-50 p-4 rounded-lg">
+            <p class="font-bold">SMK Fajar</p><p id="smkFajar">0</p>
+          </div>
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <p class="font-bold">SMK Mutiara Insani</p><p id="smkMutiara">0</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- FORM -->
-    <section id="form" class="hidden">
-      <h2 class="text-2xl font-bold text-indigo-700 mb-4">📝 Input Data Guru</h2>
-      <form id="guruForm" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-white p-6 rounded-xl shadow-lg">
-
-        <div>
-          <label>Status Sertifikasi</label>
-          <select id="statusSertifikasi" class="border p-2 w-full rounded">
-            <option value="">Pilih</option>
-            <option value="Sudah Sertifikasi">Sudah Sertifikasi</option>
-            <option value="Belum Sertifikasi">Belum Sertifikasi</option>
+    <!-- INPUT FORM -->
+    <section id="inputData" class="hidden mt-8">
+      <h2 class="text-xl font-bold text-indigo-700 mb-4"><i class="fa-solid fa-pen-to-square mr-2"></i>Form Pendataan Guru</h2>
+      <form id="guruForm" class="bg-white p-6 rounded-xl shadow space-y-4">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <label>Status Sertifikasi</label>
+            <select id="statusSertifikasi" class="border w-full rounded p-2">
+              <option>Pilih</option>
+              <option>Sudah Sertifikasi</option>
+              <option>Belum Sertifikasi</option>
+            </select>
+          </div>
+          <div>
+            <label>Nama Lengkap</label>
+            <input id="namaLengkap" class="border w-full rounded p-2" />
+          </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <input id="nrg" class="border rounded p-2" placeholder="NRG (Opsional)" />
+          <input id="tempatLahir" class="border rounded p-2" placeholder="Tempat Lahir" />
+          <input id="tanggalLahir" type="date" class="border rounded p-2" />
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <select id="jenisKelamin" class="border rounded p-2">
+            <option>Laki-laki</option><option>Perempuan</option>
+          </select>
+          <select id="agama" class="border rounded p-2">
+            <option>Islam</option><option>Kristen</option><option>Katolik</option>
+            <option>Hindu</option><option>Buddha</option>
           </select>
         </div>
-
-        <div><label>Nama Lengkap</label><input id="namaLengkap" class="border p-2 w-full rounded"></div>
-        <div><label>NRG</label><input id="nrg" class="border p-2 w-full rounded"></div>
-        <div><label>Tempat Lahir</label><input id="tempatLahir" class="border p-2 w-full rounded"></div>
-        <div><label>Tanggal Lahir</label><input type="date" id="tanggalLahir" class="border p-2 w-full rounded"></div>
-        <div><label>Jenis Kelamin</label><select id="jenisKelamin" class="border p-2 w-full rounded"><option>Laki-laki</option><option>Perempuan</option></select></div>
-        <div><label>Agama</label><input id="agama" class="border p-2 w-full rounded"></div>
-        <div><label>No. Telepon</label><input id="noTelepon" class="border p-2 w-full rounded"></div>
-        <div class="col-span-2"><label>Alamat</label><textarea id="alamat" class="border p-2 w-full rounded"></textarea></div>
-        <div><label>Status Kepegawaian</label><input id="statusKepegawaian" class="border p-2 w-full rounded"></div>
-        <div><label>Nama Sekolah</label><select id="namaSekolah" class="border p-2 w-full rounded">
-          <option>SMP Fajar</option><option>SMK Fajar</option><option>SMK Mutiara Insani</option>
-        </select></div>
-        <div><label>Bidang Studi S1</label><input id="bidangStudiS1" class="border p-2 w-full rounded"></div>
-        <div><label>Mata Pelajaran di Sekolah</label><input id="mapel" class="border p-2 w-full rounded"></div>
-        <div><label>Email Belajar.id</label><input id="emailBelajar" class="border p-2 w-full rounded"></div>
-        <div><label>Email Pribadi</label><input id="emailPribadi" class="border p-2 w-full rounded"></div>
-        <div><label>Jenis Sertifikasi</label><input id="jenisSertifikasi" class="border p-2 w-full rounded"></div>
-        <div><label>Bidang Studi Sertifikasi</label><input id="bidangSertifikasi" class="border p-2 w-full rounded"></div>
-        <div><label>Tanggal Mulai Berlaku</label><input type="date" id="tanggalMulaiBerlaku" class="border p-2 w-full rounded"></div>
-        <div><label>Nomor Peserta Sertifikasi/PLPG</label><input id="nomorPeserta" class="border p-2 w-full rounded"></div>
-
-        <div class="col-span-2 flex justify-end mt-4 gap-3">
-          <button type="button" id="isiDummy" class="bg-amber-500 px-4 py-2 rounded text-white">Isi Dummy</button>
-          <button type="submit" class="bg-indigo-600 px-4 py-2 rounded text-white">Kirim</button>
+        <input id="noTelepon" class="border rounded p-2 w-full" placeholder="No. Telepon" />
+        <textarea id="alamat" class="border rounded p-2 w-full" placeholder="Alamat"></textarea>
+        <div class="grid md:grid-cols-2 gap-4">
+          <select id="statusKepegawaian" class="border rounded p-2">
+            <option>PNS</option><option>PPPK</option><option>GTT</option><option>GTY</option><option>Honorer</option>
+          </select>
+          <select id="namaSekolah" class="border rounded p-2">
+            <option>SMP Fajar</option><option>SMK Fajar</option><option>SMK Mutiara Insani</option>
+          </select>
         </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="bidangStudiS1" class="border rounded p-2" placeholder="Bidang Studi S1" />
+          <input id="mapel" class="border rounded p-2" placeholder="Mata Pelajaran di Sekolah" />
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="emailBelajar" class="border rounded p-2" placeholder="Email Belajar.id" />
+          <input id="emailPribadi" class="border rounded p-2" placeholder="Email Pribadi" />
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <select id="jenisSertifikasi" class="border rounded p-2"><option>PLPG</option><option>PPG</option></select>
+          <input id="bidangSertifikasi" class="border rounded p-2" placeholder="Bidang Studi Sertifikasi" />
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="tanggalMulaiBerlaku" type="date" class="border rounded p-2" />
+          <input id="nomorPeserta" class="border rounded p-2" placeholder="Nomor Peserta Sertifikasi/PLPG" />
+        </div>
+        <div class="flex gap-2">
+          <button type="button" id="btnDummy" class="bg-gray-400 text-white px-4 py-2 rounded"><i class="fa-solid fa-flask"></i> Isi Dummy</button>
+          <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded"><i class="fa-solid fa-paper-plane"></i> Kirim</button>
+        </div>
+        <div id="notif" class="mt-3 text-center font-bold"></div>
       </form>
-      <p id="notif" class="text-center mt-4 font-bold"></p>
     </section>
 
-    <!-- REKAP -->
-    <section id="rekap" class="hidden">
-      <h2 class="text-2xl font-bold text-indigo-700 mb-4">📋 Rekap Data Guru</h2>
-      <table id="rekapTable" class="w-full text-sm border-collapse bg-white rounded-lg overflow-hidden shadow">
-        <thead class="bg-indigo-600 text-white"><tr id="headerRow"></tr></thead>
-        <tbody id="bodyTable"></tbody>
+    <!-- REKAP DATA -->
+    <section id="rekapData" class="hidden mt-8">
+      <h2 class="text-xl font-bold text-indigo-700 mb-4"><i class="fa-solid fa-table mr-2"></i>Rekap Data Guru</h2>
+      <table id="rekapTable" class="w-full border text-sm">
+        <thead class="bg-indigo-600 text-white">
+          <tr><th>Nama</th><th>Sekolah</th><th>Status</th><th>Mapel</th></tr>
+        </thead>
+        <tbody></tbody>
       </table>
     </section>
-  </div>
 
-<script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyq6NGYYvDfjSHZkr-HG_qsDhiJ12zqk4Z9n19ukcoWMzw_OhQRoN-lAx9r1zVftKsr/exec"; // ganti dgn URL Web App
+  </main>
 
-function showSection(id){
-  document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-  document.getElementById(id).classList.remove("hidden");
-}
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw9dq89Zb3lRx7QqhLMaJThD-gViADodqkbs94onpDwhq7474IATc6mRtnmbrEF2J71/exec";
 
-// === FETCH DASHBOARD DATA ===
-async function loadDashboard(){
-  const res = await fetch(SCRIPT_URL);
-  const data = await res.json();
-  if(!data.success) return;
+    // Navigasi antar halaman
+    const showSection = id => {
+      ["dashboard","inputData","rekapData"].forEach(sec => document.getElementById(sec).classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
+    };
+    document.getElementById("btnDashboard").onclick = () => showSection("dashboard");
+    document.getElementById("btnInput").onclick = () => showSection("inputData");
+    document.getElementById("btnRekap").onclick = () => showSection("rekapData");
 
-  // Statistik
-  const el = document.getElementById("dashboardStats");
-  el.innerHTML = `
-    <div class='bg-indigo-100 p-4 rounded shadow'>Total Guru: <b>${data.totalGuru}</b></div>
-    <div class='bg-green-100 p-4 rounded shadow'>Sudah Sertifikasi: <b>${data.sudah}</b></div>
-    <div class='bg-red-100 p-4 rounded shadow'>Belum Sertifikasi: <b>${data.belum}</b></div>`;
+    // Load dashboard
+    async function loadDashboard(){
+      const res = await fetch(SCRIPT_URL);
+      const data = await res.json();
+      if(!data.success) return;
+      document.getElementById("totalGuru").textContent = data.total;
+      document.getElementById("sudahSertifikasi").textContent = data.sudah;
+      document.getElementById("belumSertifikasi").textContent = data.belum;
+      document.getElementById("smpFajar").textContent = data.distribusi["SMP Fajar"];
+      document.getElementById("smkFajar").textContent = data.distribusi["SMK Fajar"];
+      document.getElementById("smkMutiara").textContent = data.distribusi["SMK Mutiara Insani"];
 
-  // Chart Distribusi
-  const ctx = document.getElementById("chartDistribusi");
-  new Chart(ctx,{
-    type:"doughnut",
-    data:{
-      labels:Object.keys(data.distribusi),
-      datasets:[{data:Object.values(data.distribusi),backgroundColor:["#60a5fa","#34d399","#f472b6"]}]
+      const tbody = document.querySelector("#rekapTable tbody");
+      tbody.innerHTML = data.data.map(d=>`<tr class='border'><td>${d[2]}</td><td>${d[11]}</td><td>${d[1]}</td><td>${d[13]}</td></tr>`).join("");
     }
-  });
-
-  // Rekap
-  const headerRow = document.getElementById("headerRow");
-  headerRow.innerHTML = Object.keys(data.data[0]||{}).map(h=>`<th class='p-2 border'>${h}</th>`).join("");
-  const body = document.getElementById("bodyTable");
-  body.innerHTML = data.data.map(r=>`<tr>${Object.values(r).map(v=>`<td class='border p-1'>${v||""}</td>`).join("")}</tr>`).join("");
-}
-
-loadDashboard();
-
-// === SUBMIT FORM ===
-document.getElementById("guruForm").addEventListener("submit", async e=>{
-  e.preventDefault();
-  const notif = document.getElementById("notif");
-  const form = e.target;
-  const data = {};
-  form.querySelectorAll("input, select, textarea").forEach(f=>data[f.id]=f.value);
-
-  notif.innerHTML="⏳ Mengirim...";
-  try{
-    const res = await fetch(SCRIPT_URL,{method:"POST",body:JSON.stringify(data)});
-    const json = await res.json();
-    notif.innerHTML = json.success ? "✅ Data berhasil disimpan!" : "❌ Gagal: "+json.error;
-    form.reset();
     loadDashboard();
-  }catch(err){
-    notif.innerHTML = "⚠️ Koneksi gagal: "+err.message;
-  }
-});
 
-// === DUMMY BUTTON ===
-document.getElementById("isiDummy").addEventListener("click", ()=>{
-  const d = {
-    statusSertifikasi:"Sudah Sertifikasi", namaLengkap:"Soni Haji", nrg:"9988776655",
-    tempatLahir:"Bogor", tanggalLahir:"1988-06-15", jenisKelamin:"Laki-laki", agama:"Islam",
-    noTelepon:"081234567890", alamat:"Jl. Pendidikan No.10 Rumpin", statusKepegawaian:"PNS",
-    namaSekolah:"SMK Fajar", bidangStudiS1:"Teknologi Informasi", mapel:"Informatika",
-    emailBelajar:"sonihaji@belajar.id", emailPribadi:"sonihaji@gmail.com",
-    jenisSertifikasi:"PPG", bidangSertifikasi:"Informatika", tanggalMulaiBerlaku:"2025-01-01",
-    nomorPeserta:"PPG2025-001"
-  };
-  Object.entries(d).forEach(([id,val])=>document.getElementById(id).value=val);
-  alert("✅ Dummy data diisi otomatis. Klik Kirim untuk uji coba!");
-});
-</script>
+    // Kirim data
+    document.getElementById("guruForm").addEventListener("submit", async e=>{
+      e.preventDefault();
+      const notif = document.getElementById("notif");
+      notif.innerHTML = "<span class='text-gray-600'>Menyimpan data...</span>";
+
+      const fd = {};
+      document.querySelectorAll("#guruForm input, #guruForm select, #guruForm textarea").forEach(el=>{
+        fd[el.id] = el.value;
+      });
+
+      const res = await fetch(SCRIPT_URL,{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify(fd)
+      });
+      const result = await res.json();
+      notif.innerHTML = result.success
+        ? "<span class='text-green-600'>✅ Data berhasil disimpan!</span>"
+        : "<span class='text-red-600'>❌ Gagal: "+result.error+"</span>";
+      loadDashboard();
+    });
+
+    // Isi dummy otomatis
+    document.getElementById("btnDummy").onclick = ()=>{
+      document.getElementById("statusSertifikasi").value = "Sudah Sertifikasi";
+      document.getElementById("namaLengkap").value = "Budi Santoso";
+      document.getElementById("nrg").value = "9988776655";
+      document.getElementById("tempatLahir").value = "Bogor";
+      document.getElementById("tanggalLahir").value = "1985-10-10";
+      document.getElementById("jenisKelamin").value = "Laki-laki";
+      document.getElementById("agama").value = "Islam";
+      document.getElementById("noTelepon").value = "08123456789";
+      document.getElementById("alamat").value = "Jl. Pendidikan No.10 Rumpin";
+      document.getElementById("statusKepegawaian").value = "GTT";
+      document.getElementById("namaSekolah").value = "SMK Fajar";
+      document.getElementById("bidangStudiS1").value = "Teknik Komputer";
+      document.getElementById("mapel").value = "Informatika";
+      document.getElementById("emailBelajar").value = "budi@belajar.id";
+      document.getElementById("emailPribadi").value = "budi@gmail.com";
+      document.getElementById("jenisSertifikasi").value = "PPG";
+      document.getElementById("bidangSertifikasi").value = "TIK";
+      document.getElementById("tanggalMulaiBerlaku").value = "2024-01-01";
+      document.getElementById("nomorPeserta").value = "PPG-FAJAR-2024";
+    };
+  </script>
 </body>
 </html>
